@@ -19,13 +19,9 @@ const studentSchema = new mongoose.Schema({
         }
     },
     phone: {
-        type: String,
+        type: Number,
         required: true,
-        validate(value) {
-            if (!validator.isMobilePhone(value, "any")) {
-                throw new Error("Invalid phone number");
-            }
-        }
+        min: 10
     }
 });
 
