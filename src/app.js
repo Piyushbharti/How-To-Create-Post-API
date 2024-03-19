@@ -39,6 +39,35 @@ app.post("/home", async(req, res) => {
     
 });
 
+// get a response using get API
+app.get('/home',async(req, res)=>{
+    try{
+        const user = await Student.find()
+        res.status(200).send(user)
+    }catch(e){
+        res.status(404).send(e)
+    }
+})
+
+
+// get a reposnse by particular id or name for Id we use findById and for anyother key we use findOne 
+app.get('/home/:email',async(req, res)=>{
+    try{
+        const email = req.params.email
+        // console.log(name)
+        const response = await Student.findOne({email: email})
+        if(!response){  
+            res.status(404).send()
+        }
+        else{
+            res.status(201).send(response)
+        }
+    }catch(e){
+        res.status(401).send(e)
+
+    }
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
